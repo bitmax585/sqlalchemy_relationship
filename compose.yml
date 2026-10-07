@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+      - ./alembic:/app/alembic
+    command: ["sleep", "infinity"]
+
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: amir
+      POSTGRES_PASSWORD: brotherofsarina
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
